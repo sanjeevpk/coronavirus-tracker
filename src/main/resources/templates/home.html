@@ -16,15 +16,38 @@
   </head>
 
   <body>
+  <div class="container-fluid">
 
-    <h1>Corona Virus Statistics</h1>
-  
-    <table>
-      <tr>
-        <th>Country/Region</th>
-        <th>Province/State</th>
-        <th>Total Reported Cases</th>
-      </tr>
+   <div class="jumbotron">
+   	<h1 class="display-4">Corona Virus Statistics!</h1>
+  	<p class="lead">This is a simple effort to display the corona virus related statistics information</p>
+  	<hr class="my-4">
+  	<p/>
+  	<ul class="nav nav-pills nav-fill">
+	  <li class="nav-item">
+	    <a class="nav-link active" href="#">New Cases 10</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link active" href="#">Total Cases 292</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link active" href="#">Total Recovered 22</a>
+	  </li> 
+	  <li class="nav-item">
+	    <a class="nav-link active" href="#">Total Deaths 3</a>
+	  </li>
+	</ul>
+  	
+   </div>
+  	
+  	<table class="table">
+	  <thead class="thead-dark">
+	    <tr>
+	      <th scope="col">Country/Region</th>
+	      <th scope="col">Province/State</th>
+	      <th scope="col">Total Reported</th>
+	    </tr>
+	  </thead>
       <tr th:each="countryStat : ${countryStatistics}">
         <td th:text="${countryStat.country}">NA</td>
         <td th:text="${countryStat.state}">NA</td>
@@ -35,7 +58,7 @@
     <p>
       <a href="../home.html" th:href="@{/}">Return to home</a>
     </p>
-
+  </div>
   </body>
 
 </html>
