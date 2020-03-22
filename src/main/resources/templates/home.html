@@ -1,0 +1,41 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <title>Corona Virus Tracker</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
+  </head>
+
+  <body>
+
+    <h1>Corona Virus Statistics</h1>
+  
+    <table>
+      <tr>
+        <th>Country/Region</th>
+        <th>Province/State</th>
+        <th>Total Reported Cases</th>
+      </tr>
+      <tr th:each="countryStat : ${countryStatistics}">
+        <td th:text="${countryStat.country}">NA</td>
+        <td th:text="${countryStat.state}">NA</td>
+        <td th:text="${countryStat.totalReportedCases}">NA</td>
+      </tr>
+    </table>
+  
+    <p>
+      <a href="../home.html" th:href="@{/}">Return to home</a>
+    </p>
+
+  </body>
+
+</html>
