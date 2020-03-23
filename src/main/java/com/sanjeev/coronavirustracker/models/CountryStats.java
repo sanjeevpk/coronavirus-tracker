@@ -12,6 +12,7 @@ public class CountryStats {
 	private String country;
 	private String state;
 	private String totalReportedCases;
+	private String differenceFromPrevDay;
 	
 	public String getCountry() {
 		return country;
@@ -32,9 +33,16 @@ public class CountryStats {
 		this.totalReportedCases = totalReportedCases;
 	}
 	
+	public String getDifferenceFromPrevDay() {
+		return differenceFromPrevDay;
+	}
+	public void setDifferenceFromPrevDay(String differenceFromPrevDay) {
+		this.differenceFromPrevDay = differenceFromPrevDay;
+	}
 	@Override
 	public String toString() {
 		return "CountryStats [country=" + country + ", state=" + state + ", totalReportedCases=" + totalReportedCases
-				+ "]";
+				+ ", differenceFromPrevDay=" + differenceFromPrevDay + "]";
 	}
+	
 }

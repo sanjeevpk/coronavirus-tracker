@@ -1,10 +1,9 @@
 /**
  * 
  */
-package com.sanjeev.coronavirustracker;
+package com.sanjeev.coronavirustracker.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.CoroutinesUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -46,12 +46,14 @@
 	      <th scope="col">Country/Region</th>
 	      <th scope="col">Province/State</th>
 	      <th scope="col">Total Reported</th>
+	      <th scope="col">Changes since last day</th>
 	    </tr>
 	  </thead>
       <tr th:each="countryStat : ${countryStatistics}">
         <td th:text="${countryStat.country}">NA</td>
         <td th:text="${countryStat.state}">NA</td>
         <td th:text="${countryStat.totalReportedCases}">NA</td>
+        <td th:text="${countryStat.differenceFromPrevDay}">NA</td>
       </tr>
     </table>
   

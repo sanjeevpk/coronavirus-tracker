@@ -58,12 +58,13 @@ public class CoronaVirusDataService {
 			for (CSVRecord record : records) {
 			    String state = record.get("Province/State");
 			    String country = record.get("Country/Region");
-			    String totalConfirmedCases = record.get(record.size() -1);
+			    String countrywiseTotalCases = record.get(record.size() -1);
 			    
 			    CountryStats countryStats = new CountryStats();
 			    countryStats.setCountry(country);
 			    countryStats.setState(state);
-			    countryStats.setTotalReportedCases(totalConfirmedCases);
+			    countryStats.setTotalReportedCases(countrywiseTotalCases);
+			    countryStats.setDifferenceFromPrevDay(String.valueOf(Integer.parseInt(countrywiseTotalCases) - Integer.parseInt(record.get(record.size() - 2))));
 			    System.out.println(countryStats);
 			    latestCountryStatistics.add(countryStats);
 			}
