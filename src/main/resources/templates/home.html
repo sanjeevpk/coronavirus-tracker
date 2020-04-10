@@ -23,37 +23,38 @@
   	<p class="lead">This is a simple effort to display the corona virus related statistics information</p>
   	<hr class="my-4">
   	<p/>
+  	
   	<ul class="nav nav-pills nav-fill">
 	  <li class="nav-item">
-	    <a class="nav-link active" href="#">New Cases 10</a>
+	    <a class="nav-link active" href="#">Total New Cases Reported Today <p th:text="${totalNewCases}"></p></a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link active" href="#">Total Cases 292</a>
+	    <a class="nav-link active" href="#">Total Confirmed Cases <p th:text="${totalConfirmedCases}"></p></a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link active" href="#">Total Recovered 22</a>
+	    <a class="nav-link active" href="#">Total Recovered <p th:text="${totalRecoveredCases}"></p></a>
 	  </li> 
 	  <li class="nav-item">
-	    <a class="nav-link active" href="#">Total Deaths 3</a>
+	    <a class="nav-link active" href="#">Total Deaths <p th:text="${totalNewCases}"></p></a>
 	  </li>
 	</ul>
   	
    </div>
   	
-  	<table class="table">
+  	<table class="table table-striped">
 	  <thead class="thead-dark">
 	    <tr>
 	      <th scope="col">Country/Region</th>
-	      <th scope="col">Province/State</th>
 	      <th scope="col">Total Reported</th>
 	      <th scope="col">Changes since last day</th>
+	      
 	    </tr>
 	  </thead>
       <tr th:each="countryStat : ${countryStatistics}">
         <td th:text="${countryStat.country}">NA</td>
-        <td th:text="${countryStat.state}">NA</td>
         <td th:text="${countryStat.totalReportedCases}">NA</td>
         <td th:text="${countryStat.differenceFromPrevDay}">NA</td>
+        
       </tr>
     </table>
   
