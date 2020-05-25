@@ -3,15 +3,12 @@
  */
 package com.sanjeev.coronavirustracker.models;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author Sanjeev Kulkarni
  *
  */
 
-public class CountryStats {
+public class StateStats {
 	private String country;
 	private String state;
 	private String totalReportedCases;
@@ -20,10 +17,6 @@ public class CountryStats {
 	private String totalConfirmedCases;
 	private String totalRecoveredCases;
 	private int differenceFromPreRecoveredCases;
-	private List<StateStats> stateStats = new ArrayList<>();
-	private boolean updated;
-	private Double longitude;
-	private Double latitude;
 	
 	public String getCountry() {
 		return country;
@@ -76,32 +69,6 @@ public class CountryStats {
 	}
 	public void setDifferenceFromPreRecoveredCases(int differenceFromPreRecoveredCases) {
 		this.differenceFromPreRecoveredCases = differenceFromPreRecoveredCases;
-	}
-	
-	public List<StateStats> getStateStats() {
-		return stateStats;
-	}
-	public void setStateStats(List<StateStats> stateStats) {
-		this.stateStats = stateStats;
-	}
-	
-	public boolean isUpdated() {
-		return updated;
-	}
-	public void setUpdated(boolean updated) {
-		this.updated = updated;
-	}
-	public Double getLongitude() {
-		return longitude;
-	}
-	public void setLongitude(Double longitude) {
-		this.longitude = longitude;
-	}
-	public Double getLatitude() {
-		return latitude;
-	}
-	public void setLatitude(Double latitude) {
-		this.latitude = latitude;
 	}
 	
 	@Override
