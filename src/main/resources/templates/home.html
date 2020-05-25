@@ -4,7 +4,7 @@
       xmlns:th="http://www.thymeleaf.org">
 
   <head>
-    <title>Corona Virus Tracker</title>
+   	<title>Corona Virus Tracker</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -12,56 +12,75 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    
+    <style type="text/css">
+        .iconStyle{
+            height:20px;
+            margin-left:5px;
+        }
+    </style>
   </head>
 
   <body>
-  <div class="container-fluid">
-
-   <div class="jumbotron">
-   	<h1 class="display-4">Corona Virus Statistics!</h1>
-  	<p class="lead">This is a simple effort to display the corona virus related statistics information</p>
-  	<hr class="my-4">
-  	<p/>
-  	
-  	<ul class="nav nav-pills nav-fill">
-	  <li class="nav-item">
-	    <a class="nav-link active" href="#">Total New Cases Reported Today <p th:text="${totalNewCases}"></p></a>
-	  </li>
-	  <li class="nav-item">
-	    <a class="nav-link active" href="#">Total Confirmed Cases <p th:text="${totalConfirmedCases}"></p></a>
-	  </li>
-	  <li class="nav-item">
-	    <a class="nav-link active" href="#">Total Recovered <p th:text="${totalRecoveredCases}"></p></a>
-	  </li> 
-	  <li class="nav-item">
-	    <a class="nav-link active" href="#">Total Deaths <p th:text="${totalNewCases}"></p></a>
-	  </li>
-	</ul>
-  	
-   </div>
-  	
-  	<table class="table table-striped">
-	  <thead class="thead-dark">
-	    <tr>
-	      <th scope="col">Country/Region</th>
-	      <th scope="col">Total Reported</th>
-	      <th scope="col">Changes since last day</th>
-	      
-	    </tr>
-	  </thead>
-      <tr th:each="countryStat : ${countryStatistics}">
-        <td th:text="${countryStat.country}">NA</td>
-        <td th:text="${countryStat.totalReportedCases}">NA</td>
-        <td th:text="${countryStat.differenceFromPrevDay}">NA</td>
-        
-      </tr>
-    </table>
-  
-    <p>
-      <a href="../home.html" th:href="@{/}">Return to home</a>
-    </p>
-  </div>
-  </body>
+	<div class="container">
+	    <h1>Corona-Virus Tracker Application</h1>
+	    <p>This Application Lists the current number of cases reported across the Globe</p>
+	
+	    <div class="jumbotron">
+	        <h1 class="display-4" th:text="${totalReportedCases}"></h1>
+	        <p class="lead">Total cases reported as of Today</p>
+	        <hr class="my-4">
+	        <p>
+	            <span>New Cases reported since previous day : </span>
+	            <span th:text="${totalNewCases}"></span>
+	        </p>
+	        <p>
+	            <span>Total Recovered : </span>
+	            <span th:text="${totalRecovered}"></span>
+	        </p>
+	        <p>
+	            <span>Recovered since previous day : </span>
+	            <span th:text="${totalRecoveredToday}"></span>
+	        </p>
+	        <p>
+	            <span>Total Deaths : </span>
+	            <span th:text="${totalDeaths}"></span>
+	        </p>
+	        <p>
+	            <span>Deaths since previous day : </span>
+	            <span th:text="${totalDeathsToday}"></span>
+	        </p>
+	    </div>
+	
+	    <table class="table table-striped">
+		  <thead class="thead-dark">
+	        <tr>
+	            <th>Country</th>
+	            <th>Total Cases</th>
+	            <th>New cases</th>
+	            <th>Recovered Cases</th>
+	            <th>Newly Recovered Cases</th>
+	            <th>Death(s) Cases</th>
+	            <th>New Death(s) Cases</th>
+	        </tr>
+	      </thead>  
+	        <tr th:each="locationsStat : ${locationsStats}">
+	            <td th:text="${locationsStat.country}"></td>
+	            <td th:text="${locationsStat.updated}? ${locationsStat.latestCases} : 'Not Updated'">0</td>
+	            <td th:if="${locationsStat.diffFromPrevDay == 0}">0</td>
+	            <td th:if="${locationsStat.diffFromPrevDay > 0}"><span th:text="${locationsStat.diffFromPrevDay}"></span><!--<img src="sort-up.png" class="iconStyle"></img>--></td>
+	            <td th:if="${locationsStat.diffFromPrevDay < 0}"><span th:text="${-locationsStat.diffFromPrevDay}"></span><!--<img src="sort-down.png" class="iconStyle"></img>--></td>
+	            <td th:text="${locationsStat.recovery}"></td>
+	            <td th:if="${locationsStat.recoveryDiffFromPrevDay == 0}">0</td>
+	            <td th:if="${locationsStat.recoveryDiffFromPrevDay > 0}"><span th:text="${locationsStat.recoveryDiffFromPrevDay}"></span><!--<img src="sort-up.png" class="iconStyle"></img>--></td>
+	            <td th:if="${locationsStat.recoveryDiffFromPrevDay < 0}"><span th:text="${-locationsStat.recoveryDiffFromPrevDay}"></span><!--<img src="sort-down.png" class="iconStyle"></img>--></td>
+	            <td th:text="${locationsStat.death}"></td>
+	            <td th:if="${locationsStat.deathDiffFromPrevDay == 0}">0</td>
+	            <td th:if="${locationsStat.deathDiffFromPrevDay > 0}"><span th:text="${locationsStat.deathDiffFromPrevDay}"></span><!--<img src="sort-up.png" class="iconStyle"></img>--></td>
+	            <td th:if="${locationsStat.deathDiffFromPrevDay < 0}"><span th:text="${-locationsStat.deathDiffFromPrevDay}"></span><img src="sort-down.png" class="iconStyle"></img></td>
+	        </tr>
+	    </table>
+	</div>
+	
+	</body>
 
 </html>

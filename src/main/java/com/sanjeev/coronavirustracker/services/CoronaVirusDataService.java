@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 
 import org.apache.commons.csv.CSVFormat;
@@ -19,6 +18,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.sanjeev.coronavirustracker.models.CountryStats;
+import com.sanjeev.coronavirustracker.models.StateStats;
+
+
 
 /**
  * @author Sanjeev Kulkarni
@@ -108,6 +110,28 @@ public class CoronaVirusDataService {
 			deathRecords = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(deathStringReader);
 
 			for (CSVRecord confirmedRecord : confirmedRecords) {
+				CountryStats countryStats = new CountryStats();
+				
+				String country = confirmedRecord.get("Country/Region");
+				String countrywiseTotalCases = confirmedRecord.get(confirmedRecord.size() - 1);
+
+				countryStats.setCountry(country);
+				countryStats.setTotalReportedCases(countrywiseTotalCases);
+				countryStats.setDifferenceFromPrevDay(String.valueOf(Integer.parseInt(countrywiseTotalCases)
+						- Integer.parseInt(confirmedRecord.get(confirmedRecord.size() - 2))));
+				
+				System.out.println(countryStats);
+				String state = confirmedRecord.get("Province/State");
+				if (!state.isEmpty()) 
+					countryStats.getStateStats().add(setCoronaStateModel(confirmedRecord));
+				latestCountryStatistics.add(countryStats);
+			}
+				
+				
+				
+				
+				
+				/*
 //				for (CSVRecord recoveredRecord : recoveredRecords) {
 //					for (CSVRecord deathRecord : deathRecords) {
 //					if (confirmedRecord.get("Country/Region").trim()
@@ -132,29 +156,29 @@ public class CoronaVirusDataService {
 //						countryStats.setDifferenceFromPreRecoveredCases(Integer.parseInt(countrywiseRecoveredCases)
 //								- Integer.parseInt(countrywiseRecoveredCases2));
 
-						/**
+						*//**
 						 * Total New Cases
-						 */
+						 *//*
 						totalNewCases = totalNewCases + Long.parseLong(countryStats.getDifferenceFromPrevDay());
 						countryStats.setTotalNewCases(totalNewCases.toString());
 						this.totalNewCases = totalNewCases;
 
-						/**
+						*//**
 						 * Total Confirmed Cases
-						 */
+						 *//*
 						totalConfirmedCases = totalConfirmedCases
 								+ Long.parseLong(countryStats.getTotalReportedCases());
 						countryStats.setTotalConfirmedCases(totalConfirmedCases.toString());
 						this.totalConfirmedCases = totalConfirmedCases;
 						System.out.println(countryStats);
 
-						if (state.isEmpty()) {
+//						if (state.isEmpty()) {
 							latestCountryStatistics.add(countryStats);
-						}
+//						}
 //						break;
 //						}
 //					}
-				}
+				}*/
 //			}
 			this.countryStatistics = latestCountryStatistics;
 		} catch (IOException e) {
@@ -163,6 +187,22 @@ public class CoronaVirusDataService {
 
 	}
 	
+	private StateStats setCoronaStateModel(CSVRecord record) {
+        StateStats model = new StateStats();
+        boolean valueUpdated = (!record.get(record.size() - 1).contentEquals(""));
+//        model.setUpdated(valueUpdated);
+//        if (valueUpdated) {
+            int latestCase = Integer.parseInt(record.get(record.size() - 1));
+            int prevDayCase = Integer.parseInt(record.get(record.size() - 2));
+            model.setTotalConfirmedCases(String.valueOf(latestCase));
+            model.setDifferenceFromPrevDay(String.valueOf(latestCase - prevDayCase));
+//        }
+        model.setState(record.get("Province/State"));
+//        model.setLatitude(Double.parseDouble(record.get(LATITUDE)));
+//        model.setLongitude(Double.parseDouble(record.get(LONGITUDE)));
+        return model;
+    }
+
 	@PostConstruct
 	@Scheduled(cron = "* * * 1 * *")
 	public void getTheRecoveredCasesData() {
@@ -218,13 +258,14 @@ public class CoronaVirusDataService {
 
 				System.out.println(countryStats);
 
-				if (state.isEmpty()) {
+//				if (state.isEmpty()) {
 					latestCountryStatistics.add(countryStats);
-				}
+//				}
 			}
 			this.countryStatistics = latestCountryStatistics;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+	
 }

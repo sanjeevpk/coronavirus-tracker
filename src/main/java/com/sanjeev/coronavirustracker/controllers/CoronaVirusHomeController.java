@@ -16,20 +16,20 @@ import com.sanjeev.coronavirustracker.models.CountryDataModel;
 import com.sanjeev.coronavirustracker.services.CoronaVirusNewDataService;
 
 /**
- * @author Sanjeev Kulkarni
+ * @author user
  *
  */
 
 @Controller
-public class Controllers {
+public class CoronaVirusHomeController {
 	
 	@Autowired
-	CoronaVirusNewDataService coronaVirusDataService;
+	CoronaVirusNewDataService dataService;
 	
-	@GetMapping("/")
-	public String home(Model model) {
+	@GetMapping("/stats")
+	public String showVirusHomePageData(Model model) {
 		try {
-            Map<String, CountryDataModel> dataMap = coronaVirusDataService.getCountryDataMap();
+            Map<String, CountryDataModel> dataMap = dataService.getCountryDataMap();
             List<CountryDataModel> countryStats = new ArrayList<>();
             for (Map.Entry<String, CountryDataModel> map : dataMap.entrySet()) {
                 countryStats.add(map.getValue());
@@ -37,12 +37,18 @@ public class Controllers {
             int totalReportedCases = dataMap.entrySet().stream().mapToInt(stat -> stat.getValue().getLatestCases()).sum();
             int totalNewCases = dataMap.entrySet().stream().mapToInt(stat -> stat.getValue().getDiffFromPrevDay()).sum();
             int totalDeaths = dataMap.entrySet().stream().mapToInt(stat -> stat.getValue().getDeath()).sum();
+            int totalRecovered = dataMap.entrySet().stream().mapToInt(stat -> stat.getValue().getRecovery()).sum();
             int totalDeathsToday = dataMap.entrySet().stream().mapToInt(stat -> stat.getValue().getDeathDiffFromPrevDay()).sum();
+            int totalRecoveredToday = dataMap.entrySet().stream().mapToInt(stat -> stat.getValue().getRecoveryDiffFromPrevDay()).sum();
+            
             model.addAttribute("locationsStats", countryStats);
             model.addAttribute("totalReportedCases", totalReportedCases);
             model.addAttribute("totalNewCases", totalNewCases);
             model.addAttribute("totalDeaths", totalDeaths);
+            model.addAttribute("totalRecovered", totalRecovered);
             model.addAttribute("totalDeathsToday", totalDeathsToday);
+            model.addAttribute("totalRecoveredToday", totalRecoveredToday);
+            
         }catch (Exception e){
             e.printStackTrace();
         }
