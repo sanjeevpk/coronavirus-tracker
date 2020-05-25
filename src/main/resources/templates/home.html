@@ -22,32 +22,36 @@
 
   <body>
 	<div class="container">
-	    <h1>Corona-Virus Tracker Application</h1>
+	    <h3>Corona Virus Tracker Application</h3>
 	    <p>This Application Lists the current number of cases reported across the Globe</p>
 	
 	    <div class="jumbotron">
-	        <h1 class="display-4" th:text="${totalReportedCases}"></h1>
-	        <p class="lead">Total cases reported as of Today</p>
-	        <hr class="my-4">
+	    	<p>
+	            <span>Total cases reported as of Today : </span>
+	            <b><span th:text="${totalReportedCases}"></span></b>
+	        </p>
+	        <!--<p class="lead">Total cases reported as of Today</p>
+	        <b><span th:text="${totalReportedCases}"></span></b>-->
+	        <!--<hr class="my-4">-->
 	        <p>
 	            <span>New Cases reported since previous day : </span>
-	            <span th:text="${totalNewCases}"></span>
+	            <b><span th:text="${totalNewCases}"></span></b>
 	        </p>
 	        <p>
 	            <span>Total Recovered : </span>
-	            <span th:text="${totalRecovered}"></span>
+	            <b><span th:text="${totalRecovered}"></span></b>
 	        </p>
 	        <p>
 	            <span>Recovered since previous day : </span>
-	            <span th:text="${totalRecoveredToday}"></span>
+	            <b><span th:text="${totalRecoveredToday}"></span></b>
 	        </p>
 	        <p>
 	            <span>Total Deaths : </span>
-	            <span th:text="${totalDeaths}"></span>
+	            <b><span th:text="${totalDeaths}"></span></b>
 	        </p>
 	        <p>
 	            <span>Deaths since previous day : </span>
-	            <span th:text="${totalDeathsToday}"></span>
+	            <b><span th:text="${totalDeathsToday}"></span></b>
 	        </p>
 	    </div>
 	
